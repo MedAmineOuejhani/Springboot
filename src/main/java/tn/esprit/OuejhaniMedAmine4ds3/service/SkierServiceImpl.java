@@ -7,7 +7,9 @@ import tn.esprit.OuejhaniMedAmine4ds3.entities.Course;
 import tn.esprit.OuejhaniMedAmine4ds3.entities.Piste;
 import tn.esprit.OuejhaniMedAmine4ds3.entities.Registration;
 import tn.esprit.OuejhaniMedAmine4ds3.entities.Skier;
+import tn.esprit.OuejhaniMedAmine4ds3.repositories.ICourse;
 import tn.esprit.OuejhaniMedAmine4ds3.repositories.IPisteRepository;
+import tn.esprit.OuejhaniMedAmine4ds3.repositories.IRegistration;
 import tn.esprit.OuejhaniMedAmine4ds3.repositories.ISkier;
 
 import java.util.List;
@@ -17,7 +19,9 @@ public class SkierServiceImpl implements ISkierService{
 
 
     private ISkier skierrepository;
+    private ICourse courserepository;
 
+    private IRegistration registrationrepository;
 
     @Override
     public Skier addSkier(Skier skier) {
@@ -46,7 +50,16 @@ public class SkierServiceImpl implements ISkierService{
 
     @Override
     public Skier addSkierAndAssignToCourse(Skier skier, Long numCourse) {
+        Course course = courserepository.findById(numCourse).orElse(null);
+        skier = skierrepository.save(skier);
 
+        // Create and save the registration
+        Registration registration = new Registration();
+        registration.setSkier(skier);
+        registration.setCourse(course);
+        registrationrepository.save(registration);
+
+        return skier;
     }
 
 

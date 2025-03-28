@@ -3,6 +3,7 @@ package tn.esprit.OuejhaniMedAmine4ds3.Controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.OuejhaniMedAmine4ds3.entities.Registration;
 import tn.esprit.OuejhaniMedAmine4ds3.entities.Skier;
 import tn.esprit.OuejhaniMedAmine4ds3.service.ISkierService;
 
@@ -67,4 +68,10 @@ public class SkierController {
     void removeSkier(@PathVariable Long numSkier) {
         skierService.removeSkier(numSkier);
     }
+
+    @PostMapping("add/{numCourse}")
+    public Skier addSkierAndAssignToCourse(@RequestBody Skier Skier, @PathVariable Long numCourse) {
+        return skierService.addSkierAndAssignToCourse(Skier,numCourse);
+    }
 }
+
