@@ -1,14 +1,9 @@
 package tn.esprit.OuejhaniMedAmine4ds3.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tn.esprit.OuejhaniMedAmine4ds3.entities.Course;
-import tn.esprit.OuejhaniMedAmine4ds3.entities.Piste;
-import tn.esprit.OuejhaniMedAmine4ds3.entities.Registration;
-import tn.esprit.OuejhaniMedAmine4ds3.entities.Skier;
+import tn.esprit.OuejhaniMedAmine4ds3.entities.*;
 import tn.esprit.OuejhaniMedAmine4ds3.repositories.ICourse;
-import tn.esprit.OuejhaniMedAmine4ds3.repositories.IPisteRepository;
 import tn.esprit.OuejhaniMedAmine4ds3.repositories.IRegistration;
 import tn.esprit.OuejhaniMedAmine4ds3.repositories.ISkier;
 
@@ -60,6 +55,11 @@ public class SkierServiceImpl implements ISkierService{
         registrationrepository.save(registration);
 
         return skier;
+    }
+
+    @Override
+    public List<Skier> retrieveSkiersBySubscriptionType(TypeSubscription typeAbonnement) {
+        return skierrepository.findSkierBySubscription_TypeSub(typeAbonnement);
     }
 
 
